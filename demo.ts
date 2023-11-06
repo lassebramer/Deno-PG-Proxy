@@ -49,8 +49,8 @@ async function handleIncoming(incomingConn: Deno.Conn, outgoingConn: Deno.Conn) 
         } else {
             const message = buffer.subarray(0, count);
             const messageString = new TextDecoder().decode(message);
-            console.log(Incoming: ${ message })
-            console.log(Incoming: ${ messageString })
+            console.log(`Incoming: ${ message }`)
+            console.log(`Incoming: ${ messageString }`)
             await outgoingConn.write(message);
         }
     }
@@ -67,15 +67,15 @@ async function handleOutgoing(incomingConn: Deno.Conn, outgoingConn: Deno.Conn) 
         } else {
             const message = buffer.subarray(0, count);
             const messageString = new TextDecoder().decode(message);
-            console.log(Outgoing: ${ message })
-            console.log(Outgoing: ${ messageString })
+            console.log(`Outgoing: ${ message }`)
+            console.log(`Outgoing: ${ messageString }`)
             await incomingConn.write(message);
         }
     }
 }
 
 async function proxyDbConnection(incomingConn: Deno.Conn) {
-    console.log(${(incomingConn.localAddr as Deno.NetAddr).hostname} :: ${ (incomingConn.remoteAddr as Deno.NetAddr).hostname })
+    console.log(`${(incomingConn.localAddr as Deno.NetAddr).hostname} :: ${ (incomingConn.remoteAddr as Deno.NetAddr).hostname }`)
 
 const outgoingConn = await Deno.connect({ port: 3306 })
 // incomingConn.readable.pipeTo(outgoingConn.writable)
